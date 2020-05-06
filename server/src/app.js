@@ -5,7 +5,11 @@ const PORT = process.env.PORT || 5000;
 const session = require("express-session");
 const passport = require("passport");
 const discordStrategy = require("./strategies/discordstrategy");
+const db = require("./database/database");
 
+db.then(() => console.log("Connected to MongoDB")).catch((err) =>
+  console.error(err)
+);
 //Routes
 const authRoute = require("./routes/auth");
 
