@@ -11,7 +11,7 @@ function isAuthorized(req, res, next) {
 }
 
 router.get("/", isAuthorized, (req, res) => {
-  res.send(200);
+  res.render("dashboard");
 });
 
 router.get("/settings", isAuthorized, (req, res) => {

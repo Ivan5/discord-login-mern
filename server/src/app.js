@@ -28,6 +28,7 @@ app.use(
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
 //Passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,7 +37,7 @@ app.use(passport.session());
 app.use("/auth", authRoute);
 app.use("/dashboard", dashboardRoute);
 
-app.get("/", (req, res) => {
+app.get("/", isAuthorized, (req, res) => {
   res.render("home", {
     users: [
       { name: "Anson", email: "anson@gmail.com" },
@@ -45,6 +46,16 @@ app.get("/", (req, res) => {
     ],
   });
 });
+
+function isAuthorized(req, res, next) {
+  if (req.user) {
+    console.log(req.user);
+    res.redirect("/dashboard");
+  } else {
+    console.log("User is not logged in");
+    next();
+  }
+}
 
 app.listen(PORT, () => {
   console.log(`Now listening to request on port http://localhost:${PORT}`);
