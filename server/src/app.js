@@ -3,16 +3,9 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+const authRoute = require("./routes/auth");
 
-app.get("/dashboard", (req, res) => {
-  res.json({
-    msg: "Good",
-    status: 200,
-  });
-});
+app.use("/auth", authRoute);
 
 app.listen(PORT, () => {
   console.log(`Now listening to request on port http://localhost:${PORT}`);
