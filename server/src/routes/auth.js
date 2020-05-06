@@ -7,6 +7,7 @@ router.get(
   "/redirect",
   passport.authenticate("discord", {
     failureRedirect: "/forbidden",
+    successRedirect: "/dashboard",
   }),
   (req, res) => {
     res.send(req.user);

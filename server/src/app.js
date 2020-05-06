@@ -12,6 +12,7 @@ db.then(() => console.log("Connected to MongoDB")).catch((err) =>
 );
 //Routes
 const authRoute = require("./routes/auth");
+const dashboardRoute = require("./routes/dashboard");
 
 app.use(
   session({
@@ -20,6 +21,7 @@ app.use(
       maxAge: 60000 * 60 * 24,
     },
     saveUninitialized: false,
+    name: "discord.oauth2",
   })
 );
 
@@ -29,6 +31,7 @@ app.use(passport.session());
 
 //Middleware Routes
 app.use("/auth", authRoute);
+app.use("/dashboard", dashboardRoute);
 
 app.listen(PORT, () => {
   console.log(`Now listening to request on port http://localhost:${PORT}`);
